@@ -3,13 +3,13 @@ import cuchaz.enigma.command.ConvertMappingsCommand
 buildscript {
 	repositories {
 		maven {
-			name "Fabric Repository"
-			url 'https://maven.fabricmc.net'
+			name = "Quilt"
+			url = "https://maven.quiltmc.org/repository/release"
 		}
 	}
 
 	dependencies {
-		classpath "cuchaz:enigma:0.14.2.138"
+		classpath "cuchaz:enigma-cli:0.25.0"
 	}
 }
 
@@ -19,7 +19,7 @@ plugins {
 }
 
 static List<String> getPublishedVersions() {
-	def xml = new URL("https://maven.fabricmc.net/net/fabricmc/intermediary/maven-metadata.xml").text
+	def xml = new URL("https://maven.quiltmc.org/repository/release/org/quiltmc/intermediary/maven-metadata.xml").text
 	def metadata = new XmlSlurper().parseText(xml)
 	def versions = metadata.versioning.versions.version*.text();
 	return versions
@@ -70,7 +70,7 @@ file('mappings').eachFile {
 	publishing {
 		publications {
 			create("${mcVer.replace(" ", "")}_mavenJava", MavenPublication) {
-				groupId 'net.fabricmc'
+				groupId 'org.quiltmc'
 				artifactId "intermediary"
 				version mcVer
 				artifact(makeV1Jar.archiveFile) {
