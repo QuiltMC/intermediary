@@ -15,9 +15,10 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - uses: gradle/wrapper-validation-action@v1
-      - run: ./gradlew publish --stacktrace
+      - run: ./gradlew publish refreshMeta --stacktrace
         env:
           MAVEN_URL: ${{ secrets.MAVEN_URL }}
           MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
           FORCE_PUBLISH: ${{ github.event.inputs.version }}
+          META_UPDATE_URL: ${{ secrets.META_UPDATE_URL }}
